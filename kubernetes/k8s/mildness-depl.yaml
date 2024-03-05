@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mildness-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mildness
+  template:
+    metadata:
+      labels:
+        app: mildness
+    spec:
+      containers:
+        - name: mildness
+          image: blogcoding/mildness
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mildness-srv
+spec:
+  selector:
+    app: mildness
+  ports:
+    - name: mildness
+      protocol: TCP
+      port: 4003
+      targetPort: 4003
